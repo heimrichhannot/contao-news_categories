@@ -15,6 +15,9 @@
 /**
  * Load tl_news_archive language file
  */
+
+use HeimrichHannot\FieldpaletteBundle\Manager\FieldPaletteModelManager;
+
 \System::loadLanguageFile('tl_news_archive');
 
 /**
@@ -467,17 +470,23 @@ class tl_news_category extends Backend
         $this->log('A new version of record "tl_news_category.id=' . $intId . '" has been created' . $this->getParentEntries('tl_news_category', $intId), __METHOD__, TL_GENERAL);
     }
 
-    public function getNewsArchives(\DataContainer $dc)
+    public function getNewsArchives(DataContainer $dc)
     {
         $options = [];
 
-        if (($archives = \NewsArchiveModel::findAll()) === null) {
+        if (($archives = NewsArchiveModel::findAll()) === null) {
             return $options;
         }
 
         $options = $archives->fetchEach('title');
 
-        $existing = \HeimrichHannot\FieldpaletteBundle\Model\FieldPaletteModel::findByPidAndTableAndField($dc->activeRecord->pid, 'tl_news_category', 'archiveConfig');
+        /** @var FieldPaletteModelManager $fieldPaletteModelManager */
+        $fieldPaletteModelManager = \Contao\System::getContainer()->get('huh.fieldpalette.manager');
+        $existing = $fieldPaletteModelManager->getInstance()->findPublishedByPidAndTableAndField(
+            $dc->activeRecord->pid,
+            'tl_news_category',
+            'archiveConfig'
+        );
 
         if ($existing !== null) {
             while ($existing->next()) {

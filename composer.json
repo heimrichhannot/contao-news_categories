@@ -23,7 +23,7 @@
   "require": {
     "php": "^7.1 || ^8.0",
     "contao/core-bundle": "^4.4",
-    "heimrichhannot/contao-fieldpalette-bundle": "0.*"
+    "heimrichhannot/contao-fieldpalette-bundle": "^0.6"
   },
   "suggest": {
     "terminal42/dc_multilingual": "2.*"

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.2.1] - 2024-11-22
+- Fixed: compatibility issue with fieldpalette 0.6
+
 ## [2.2.0] - 2024-01-30
 - Added: php8 support
 
